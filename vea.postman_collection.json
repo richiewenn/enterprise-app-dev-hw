@@ -1,0 +1,110 @@
+{
+	"info": {
+		"_postman_id": "f5bd67a5-3c28-48f8-bd7f-7551a906a9ca",
+		"name": "vea",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST Materials",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "secret123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"material\": {\n\t\t\"name\": \"wood\"\n\t},\n\t\"stock\": 100\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/stock/materials",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"stock",
+						"materials"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Materials",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Goods",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "secret123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"table\",\n\t\"requiredMaterials\": {\n\t\t\"wood\": 1\n\t}\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/goods",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"goods"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
