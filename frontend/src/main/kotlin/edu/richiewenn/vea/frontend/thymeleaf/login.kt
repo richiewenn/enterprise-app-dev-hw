@@ -1,4 +1,4 @@
-package edu.richiewenn.vea.backend.thymeleaf
+package edu.richiewenn.vea.frontend.thymeleaf
 
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
