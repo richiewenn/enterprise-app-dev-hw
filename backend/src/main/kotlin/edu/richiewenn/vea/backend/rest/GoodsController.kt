@@ -5,10 +5,7 @@ import edu.richiewenn.vea.api.rest.dtos.JsonWrapper
 import edu.richiewenn.vea.backend.rangeTo
 import edu.richiewenn.vea.backend.rest.mappers.GoodsMapper
 import edu.richiewenn.vea.backend.services.GoodsService
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/v1/goods")

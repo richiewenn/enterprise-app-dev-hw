@@ -21,13 +21,13 @@ object GoodsMapper {
   )
 
   fun map(source: GoodsStock) = GoodsStockDTO(
-    id = source.id,
+//    id = source.id,
     stock = source.stock,
     goods = GoodsMapper.map(source.goods)
   )
 
   fun map(source: GoodsStockDTO) = GoodsStock(
-    id = source.id,
+//    id = source.id,
     stock = source.stock,
     goods = GoodsMapper.map(source.goods)
   )

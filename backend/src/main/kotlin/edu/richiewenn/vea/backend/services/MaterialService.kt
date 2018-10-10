@@ -42,6 +42,6 @@ class MaterialServiceImpl(
     ))
   }
 
-  override fun checkStockStatus(name: String): Int = this.materialStockRepository.findByMaterialName(name).map { it.stock }.orElseThrow()
+  override fun checkStockStatus(name: String): Int = this.materialStockRepository.findByMaterialName(name).map { it.stock }.orElse(0)
 
 }

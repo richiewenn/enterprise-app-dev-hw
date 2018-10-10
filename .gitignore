@@ -26,3 +26,5 @@
 lib/
 
 \.DS_Store
+
+backend/target/

@@ -39,12 +39,22 @@ class GoodsServiceImpl(
     ))
   }
 
-  override fun listStockStatus(): List<GoodsStock> = TODO()
+  override fun listStockStatus(): List<GoodsStock> = goodsRepository
+    .findAll()
+    .map { goods ->
+      GoodsStock(
+        goods = goods,
+        stock = goods.requiredMaterials.entries
+          .asSequence()
+          .map { materialService.checkStockStatus(it.key) / it.value }
+          .min() ?: 0
+      )
+    }
 
   override fun checkStockStatus(id: Long): Int = this.goodsRepository
     .findById(id).orElseThrow()
-    .requiredMaterials.entries.map {
-    val amount = materialService.checkStockStatus(it.key)
-    return@map amount / it.value
-  }.min() ?: 0
+    .requiredMaterials.entries
+    .asSequence()
+    .map { materialService.checkStockStatus(it.key) / it.value }
+    .min() ?: 0
 }
