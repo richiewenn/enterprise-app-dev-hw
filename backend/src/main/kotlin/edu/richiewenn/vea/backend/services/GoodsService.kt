@@ -2,16 +2,19 @@ package edu.richiewenn.vea.backend.services
 
 import edu.richiewenn.vea.backend.dao.GoodsRepository
 import edu.richiewenn.vea.backend.dao.GoodsSaleRepository
+import edu.richiewenn.vea.backend.models.BuyGoods
 import edu.richiewenn.vea.backend.models.Goods
 import edu.richiewenn.vea.backend.models.GoodsSale
 import edu.richiewenn.vea.backend.models.GoodsStock
 import org.springframework.stereotype.Service
 
 interface GoodsService {
-  fun buy(id: Long, amount: Int)
+  fun buy(goods: BuyGoods): GoodsSale
   fun listStockStatus(): List<GoodsStock>
-  fun checkStockStatus(id: Long): Int
+  fun checkStockStatus(name: String): Int
   fun addProduct(goods: Goods): Goods
+  fun getAllGoods(): List<Goods>
+  fun getSales(): List<GoodsSale>
 }
 
 @Service
@@ -20,21 +23,25 @@ class GoodsServiceImpl(
   private val goodsRepository: GoodsRepository,
   private val goodsSaleRepository: GoodsSaleRepository
 ) : GoodsService {
+  override fun getSales(): List<GoodsSale> = goodsSaleRepository.findAll().toList()
+
+  override fun getAllGoods(): List<Goods> = goodsRepository.findAll().toList()
+
   override fun addProduct(goods: Goods): Goods {
     return goodsRepository.save(goods)
   }
 
-  override fun buy(id: Long, amount: Int) {
-    if (this.checkStockStatus(id) < amount) {
+  override fun buy(goods: BuyGoods): GoodsSale {
+    if (this.checkStockStatus(goods.name) < goods.amount) {
       throw ClientException("Not enough goods at stock.")
     }
-    val one = this.goodsRepository.findById(id).orElseThrow()
+    val one = this.goodsRepository.findOneByName(goods.name).orElseThrow()
     val materialSales = one.requiredMaterials.entries.map {
-      return@map materialService.buy(it.key, it.value * amount)
+      return@map materialService.buy(it.key, it.value * goods.amount)
     }
-    this.goodsSaleRepository.save(GoodsSale(
+    return this.goodsSaleRepository.save(GoodsSale(
       goods = one,
-      amount = amount,
+      amount = goods.amount,
       materialSales = materialSales
     ))
   }
@@ -51,8 +58,8 @@ class GoodsServiceImpl(
       )
     }
 
-  override fun checkStockStatus(id: Long): Int = this.goodsRepository
-    .findById(id).orElseThrow()
+  override fun checkStockStatus(name: String): Int = this.goodsRepository
+    .findOneByName(name).orElseThrow()
     .requiredMaterials.entries
     .asSequence()
     .map { materialService.checkStockStatus(it.key) / it.value }

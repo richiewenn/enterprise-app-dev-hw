@@ -1,5 +1,8 @@
 package edu.richiewenn.vea.api.rest.dtos
 
+import com.fasterxml.jackson.annotation.JsonInclude
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 data class JsonResponse<T>(
   val data: T? = null,
   val error: JsonError? = null
