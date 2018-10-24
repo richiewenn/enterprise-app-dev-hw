@@ -28,3 +28,8 @@ lib/
 \.DS_Store
 
 backend/target/
+
+# Generated files
+backend/swagger.yaml
+backend/src/routes/routes.ts
+frontend/src/generated/api/index.ts

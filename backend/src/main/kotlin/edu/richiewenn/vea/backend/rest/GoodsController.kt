@@ -27,5 +27,18 @@ class GoodsController(
     goodsService.getAllGoods()
       .map(GoodsMapper::map)..
       JsonWrapper::wrap
+
+  @PutMapping
+  fun update(@RequestBody goods: GoodsDTO) =
+    goods..
+      GoodsMapper::map..
+      goodsService::updateProduct..
+      GoodsMapper::map..
+      JsonWrapper::wrap
+
+  @DeleteMapping("/{id}")
+  fun update(@PathVariable id: Long) =
+    goodsService.deleteProduct(id)
+
 }
 

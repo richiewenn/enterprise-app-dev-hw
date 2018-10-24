@@ -12,6 +12,8 @@ interface MaterialService {
   fun addToStock(stock: MaterialStock): MaterialStock
   fun listStockStatus(): List<MaterialStock>
   fun checkStockStatus(name: String): Int
+  fun delete(id: Long)
+  fun updateStock(stock: MaterialStock): MaterialStock
 }
 
 @Service
@@ -20,7 +22,16 @@ class MaterialServiceImpl(
   private val materialSaleRepository: MaterialSaleRepository,
   private val materialRepository: MaterialRepository
 ) : MaterialService {
+  override fun delete(id: Long) {
+    materialRepository.deleteById(id)
+  }
+
   override fun addToStock(stock: MaterialStock): MaterialStock {
+    this.materialRepository.save(stock.material)
+    return this.materialStockRepository.save(stock)
+  }
+
+  override fun updateStock(stock: MaterialStock): MaterialStock {
     this.materialRepository.save(stock.material)
     return this.materialStockRepository.save(stock)
   }

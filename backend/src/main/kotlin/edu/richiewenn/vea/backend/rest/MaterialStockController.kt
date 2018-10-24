@@ -27,4 +27,15 @@ class MaterialStockController(
       .map(MaterialMapper::map)..
       JsonWrapper::wrap
 
+  @DeleteMapping("/{id}")
+  fun delete(@PathVariable("id") id: Long) =
+    materialService.delete(id)
+
+  @PutMapping
+  fun update(@RequestBody material: MaterialStockDTO) =
+    material..
+      MaterialMapper::map..
+      materialService::updateStock..
+      MaterialMapper::map..
+      JsonWrapper::wrap
 }

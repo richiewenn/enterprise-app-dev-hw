@@ -15,6 +15,8 @@ interface GoodsService {
   fun addProduct(goods: Goods): Goods
   fun getAllGoods(): List<Goods>
   fun getSales(): List<GoodsSale>
+  fun updateProduct(goods: Goods): Goods
+  fun deleteProduct(id: Long)
 }
 
 @Service
@@ -23,11 +25,20 @@ class GoodsServiceImpl(
   private val goodsRepository: GoodsRepository,
   private val goodsSaleRepository: GoodsSaleRepository
 ) : GoodsService {
+
+  override fun deleteProduct(id: Long) {
+    goodsRepository.deleteById(id)
+  }
+
   override fun getSales(): List<GoodsSale> = goodsSaleRepository.findAll().toList()
 
   override fun getAllGoods(): List<Goods> = goodsRepository.findAll().toList()
 
   override fun addProduct(goods: Goods): Goods {
+    return goodsRepository.save(goods)
+  }
+
+  override fun updateProduct(goods: Goods): Goods {
     return goodsRepository.save(goods)
   }
 
