@@ -3,7 +3,7 @@ package edu.richiewenn.vea.backend.models
 import javax.persistence.*
 
 @Entity
-@Table(name = "material_stock")
+@Table(name = "material_stock", uniqueConstraints = [(UniqueConstraint(columnNames = ["material_id"]))])
 data class MaterialStock(
   @Id
   @GeneratedValue

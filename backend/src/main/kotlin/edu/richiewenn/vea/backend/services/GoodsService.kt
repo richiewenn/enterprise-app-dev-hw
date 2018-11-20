@@ -2,14 +2,14 @@ package edu.richiewenn.vea.backend.services
 
 import edu.richiewenn.vea.backend.dao.GoodsRepository
 import edu.richiewenn.vea.backend.dao.GoodsSaleRepository
-import edu.richiewenn.vea.backend.models.BuyGoods
+import edu.richiewenn.vea.api.rest.dtos.BuyGoodsDTO
 import edu.richiewenn.vea.backend.models.Goods
 import edu.richiewenn.vea.backend.models.GoodsSale
 import edu.richiewenn.vea.backend.models.GoodsStock
 import org.springframework.stereotype.Service
 
 interface GoodsService {
-  fun buy(goods: BuyGoods): GoodsSale
+  fun buy(goods: BuyGoodsDTO): GoodsSale
   fun listStockStatus(): List<GoodsStock>
   fun checkStockStatus(name: String): Int
   fun addProduct(goods: Goods): Goods
@@ -42,7 +42,7 @@ class GoodsServiceImpl(
     return goodsRepository.save(goods)
   }
 
-  override fun buy(goods: BuyGoods): GoodsSale {
+  override fun buy(goods: BuyGoodsDTO): GoodsSale {
     if (this.checkStockStatus(goods.name) < goods.amount) {
       throw ClientException("Not enough goods at stock.")
     }

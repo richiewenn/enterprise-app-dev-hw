@@ -33,3 +33,6 @@ backend/target/
 backend/swagger.yaml
 backend/src/routes/routes.ts
 frontend/src/generated/api/index.ts
+frontend/target/
+
+api/target/

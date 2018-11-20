@@ -11,25 +11,18 @@
     <li><a th:href="@{/goods}">Goods</a></li>
     <li><a th:href="@{/sales}">Sales</a></li>
 </ul>
-<h1>Stock</h1>
-<h2>Materials in Stock</h2>
+<h1>Goods Sales</h1>
 <table>
     <thead>
     <tr>
         <th>Name</th>
-        <th>In Stock</th>
+        <th>Amount</th>
     </tr>
     </thead>
-<tr th:each="materialStock : ${materialsInStock}">
-    <td th:text="${materialStock.material.name}"></td>
-    <td th:text="${materialStock.stock}"></td>
+<tr th:each="sale : ${goodSales}">
+    <td th:text="${sale.goods.name}"></td>
+    <td th:text="${sale.amount}"></td>
 </tr>
 </table>
-<h2>Add material to stock</h2>
-<form th:action="@{/add-to-stock}" method="post">
-    <div><label> Name : <input type="text" name="name"/> </label></div>
-    <div><label> Amount: <input type="text" name="amount"/> </label></div>
-    <div><input type="submit" value="Add"/></div>
-</form>
 </body>
 </html>

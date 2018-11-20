@@ -16,7 +16,7 @@ data class GoodsSale(
   @OneToMany
   @JoinColumn(name = "goods_sale_id", referencedColumnName = "id")
   val materialSales: List<MaterialSale>,
-  @Basic(optional = false)
+  @Basic(optional = true)
   @Column(name = "sold", insertable = false, updatable = false)
   @Temporal(TemporalType.TIMESTAMP)
   val sold: Date? = null

@@ -37,7 +37,7 @@ class GoodsController(
       JsonWrapper::wrap
 
   @DeleteMapping("/{id}")
-  fun update(@PathVariable id: Long) =
+  fun delete(@PathVariable id: Long) =
     goodsService.deleteProduct(id)
 
 }

@@ -29,7 +29,7 @@ class MaterialStockController(
 
   @DeleteMapping("/{id}")
   fun delete(@PathVariable("id") id: Long) =
-    materialService.delete(id)
+    materialService.deleteStock(id)
 
   @PutMapping
   fun update(@RequestBody material: MaterialStockDTO) =

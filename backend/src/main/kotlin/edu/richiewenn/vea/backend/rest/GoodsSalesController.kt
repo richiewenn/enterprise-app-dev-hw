@@ -1,12 +1,10 @@
 package edu.richiewenn.vea.backend.rest
 
 import edu.richiewenn.vea.api.rest.dtos.*
-import edu.richiewenn.vea.backend.models.BuyGoods
+import edu.richiewenn.vea.api.rest.dtos.BuyGoodsDTO
 import edu.richiewenn.vea.backend.rangeTo
 import edu.richiewenn.vea.backend.rest.mappers.GoodsMapper
-import edu.richiewenn.vea.backend.rest.mappers.MaterialMapper
 import edu.richiewenn.vea.backend.services.GoodsService
-import edu.richiewenn.vea.backend.services.MaterialService
 import org.springframework.web.bind.annotation.*
 
 @RestController()
@@ -15,7 +13,7 @@ class GoodsSalesController(
   private val goodsService: GoodsService
 ) {
   @PostMapping
-  fun buy(goods: BuyGoods): JsonResponse<GoodsSaleDTO> =
+  fun buy(@RequestBody goods: BuyGoodsDTO): JsonResponse<GoodsSaleDTO> =
     goods..
       goodsService::buy..
       GoodsMapper::map..

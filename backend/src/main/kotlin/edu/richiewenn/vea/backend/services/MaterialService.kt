@@ -1,5 +1,6 @@
 package edu.richiewenn.vea.backend.services
 
+import ch.qos.logback.core.net.server.Client
 import edu.richiewenn.vea.backend.dao.MaterialRepository
 import edu.richiewenn.vea.backend.dao.MaterialSaleRepository
 import edu.richiewenn.vea.backend.dao.MaterialStockRepository
@@ -12,7 +13,7 @@ interface MaterialService {
   fun addToStock(stock: MaterialStock): MaterialStock
   fun listStockStatus(): List<MaterialStock>
   fun checkStockStatus(name: String): Int
-  fun delete(id: Long)
+  fun deleteStock(id: Long)
   fun updateStock(stock: MaterialStock): MaterialStock
 }
 
@@ -22,11 +23,14 @@ class MaterialServiceImpl(
   private val materialSaleRepository: MaterialSaleRepository,
   private val materialRepository: MaterialRepository
 ) : MaterialService {
-  override fun delete(id: Long) {
-    materialRepository.deleteById(id)
+  override fun deleteStock(id: Long) {
+    materialStockRepository.deleteById(id)
   }
 
   override fun addToStock(stock: MaterialStock): MaterialStock {
+    this.materialStockRepository.findByMaterialName(stock.material.name).ifPresent {
+      throw ClientException("This material already exists in stock.")
+    }
     this.materialRepository.save(stock.material)
     return this.materialStockRepository.save(stock)
   }
