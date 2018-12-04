@@ -2,7 +2,7 @@ package edu.richiewenn.vea.frontend.thymeleaf
 
 import edu.richiewenn.vea.api.rest.dtos.*
 import edu.richiewenn.vea.frontend.backendBaseUrl
-import org.springframework.core.ParameterizedTypeReference
+import org.springframework.security.access.annotation.Secured
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -25,6 +25,7 @@ class GoodsController(
     return "goods"
   }
 
+  @Secured("ROLE_MANAGEMENT")
   @PostMapping("/add-product")
   fun addProduct(@RequestParam params: Map<String, String>): ModelAndView {
     restTemplate.postForObject<JsonResponse<GoodsStockDTO>>("$backendBaseUrl/goods", GoodsDTO(
@@ -34,6 +35,7 @@ class GoodsController(
     return ModelAndView("redirect:/goods")
   }
 
+  @Secured("ROLE_SALES")
   @PostMapping("/buy-product")
   fun buyProduct(@RequestParam params: Map<String, String>): ModelAndView {
     val buy = BuyGoodsDTO(

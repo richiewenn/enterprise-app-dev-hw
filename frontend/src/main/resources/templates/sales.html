@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Stock</title>
     <link href="/styles.css" rel="stylesheet">
 </head>
 <body>
 <ul>
+    <li><a th:href="@{/hello}">Home</a></li>
     <li><a th:href="@{/stock}">Stock</a></li>
     <li><a th:href="@{/goods}">Goods</a></li>
     <li><a th:href="@{/sales}">Sales</a></li>

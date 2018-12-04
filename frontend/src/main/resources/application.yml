@@ -3,3 +3,4 @@ server:
 spring:
   thymeleaf:
     cache: false
+    enable-spring-el-compiler: true

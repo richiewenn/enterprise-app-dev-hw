@@ -5,6 +5,7 @@ import edu.richiewenn.vea.api.rest.dtos.MaterialDTO
 import edu.richiewenn.vea.api.rest.dtos.MaterialStockDTO
 import edu.richiewenn.vea.frontend.backendBaseUrl
 import org.springframework.core.ParameterizedTypeReference
+import org.springframework.security.access.annotation.Secured
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -27,6 +28,7 @@ class StockController(
     return "stock"
   }
 
+  @Secured("ROLE_PURCHASING")
   @PostMapping("/add-to-stock")
   fun addToStock(@RequestParam params: Map<String, String>): ModelAndView {
     restTemplate.postForObject<JsonResponse<MaterialStockDTO>>("$backendBaseUrl/stock/materials", MaterialStockDTO(

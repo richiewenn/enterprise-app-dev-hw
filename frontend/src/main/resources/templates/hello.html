@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
 <head>
     <title>Welcome</title>
 </head>
 <body>
-<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+<h1 th:inline="text">Hello <span th:text="${#authentication.name}"></span></h1>
+<div>You have these authorities: <span sec:authentication="principal.authorities"></span></div>
 <ul>
+    <li><a th:href="@{/hello}">Home</a></li>
     <li><a th:href="@{/stock}">Stock</a></li>
     <li><a th:href="@{/goods}">Goods</a></li>
     <li><a th:href="@{/sales}">Sales</a></li>

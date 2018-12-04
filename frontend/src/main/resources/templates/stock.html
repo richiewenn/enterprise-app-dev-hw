@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Stock</title>
     <link href="/styles.css" rel="stylesheet">
 </head>
 <body>
 <ul>
+    <li><a th:href="@{/hello}">Home</a></li>
     <li><a th:href="@{/stock}">Stock</a></li>
     <li><a th:href="@{/goods}">Goods</a></li>
     <li><a th:href="@{/sales}">Sales</a></li>
@@ -20,16 +21,18 @@
         <th>In Stock</th>
     </tr>
     </thead>
-<tr th:each="materialStock : ${materialsInStock}">
-    <td th:text="${materialStock.material.name}"></td>
-    <td th:text="${materialStock.stock}"></td>
-</tr>
+    <tr th:each="materialStock : ${materialsInStock}">
+        <td th:text="${materialStock.material.name}"></td>
+        <td th:text="${materialStock.stock}"></td>
+    </tr>
 </table>
-<h2>Add material to stock</h2>
-<form th:action="@{/add-to-stock}" method="post">
-    <div><label> Name : <input type="text" name="name"/> </label></div>
-    <div><label> Amount: <input type="text" name="amount"/> </label></div>
-    <div><input type="submit" value="Add"/></div>
-</form>
+<div sec:authorize="hasRole('PURCHASING')">
+    <h2>Add material to stock</h2>
+    <form th:action="@{/add-to-stock}" method="post">
+        <div><label> Name : <input type="text" name="name"/> </label></div>
+        <div><label> Amount: <input type="text" name="amount"/> </label></div>
+        <div><input type="submit" value="Add"/></div>
+    </form>
+</div>
 </body>
 </html>
